@@ -1,0 +1,57 @@
+html,body{
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+#positive, #negative{
+	height: 100%;
+	width: 50%;
+	display: inline-block;
+}
+h1{
+	/*margin: 0 auto;*/
+	text-align: center;
+}
+
+#positive{
+	/*border: 1px solid green;*/
+	float: left;
+	background: #A4FF92;
+}
+
+#negative{
+	/*border: 1px solid red;*/
+	float: right;
+	background: #ff9999;
+}
+
+ul{
+	list-style: none;
+	padding: 1.5em;
+	margin-left: 2em;
+}
+#positive ul li:before{
+	content: "+";
+	margin-right: 10px
+}
+#negative ul li:before{
+	content: "-";
+	margin-right: 10px
+}
+
+footer{
+	clear:both;
+}
+
+#pro_submit, #con_submit{
+	position: relative;
+	top: 20em;
+	left: 8em;
+}
+
+
+
+
+
+
