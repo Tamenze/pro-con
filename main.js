@@ -1,17 +1,19 @@
 $(document).ready(function(){
 console.log("connected.")
 console.log($("input:text").length)
-
+proArray = []
 
 if(typeof(Storage) !== "undefined"){
-    // proArray = [];
-    proArray = localStorage.getItem('pros').split(",")
-
+    // PROBLEM = inputs that contain commas within themselves get split into separate array items. 
+    // 	we need to find a way to split the array into strings without messing up the internal strings, a way that doesnt use commas
+    // Solution = JSON.stringify (converts proArray to string) and JSON.parse(converts string back to array)
 
     if (localStorage.getItem("pros") !== null ){
+    	 proArray = JSON.parse(localStorage.getItem('pros'))
     	// PROBLEM = when pushed to proArray, length is fine. but when localStorage sets 'pros' to be proArray, it is pushing each new character as a separate item in the array, rather than whole strings. 
 		// we need to find a way to make sure the setItem is accepting things as Arrays, not as strings
-    	var proPrevArray = localStorage.getItem('pros').split(",")
+    	// var proPrevArray = localStorage.getItem('pros').split(",")
+    	var proPrevArray = JSON.parse(localStorage.getItem('pros'))
 	      	if (proPrevArray !== null){
 	      		for (var i = 0; i < proPrevArray.length; i++){
 	      			$(".pro_ul").append("<li>" + proPrevArray[i] + "</li>") 
@@ -51,7 +53,8 @@ $("#pro_submit").on("click", function(){
 		// 1)push the innertext to the proArray 
 		// 2)reset the localstorage item
 		proArray.push(inputted_pro);
-		localStorage.setItem("pros", proArray);
+		// localStorage.setItem("pros", proArray);
+		localStorage.setItem("pros", JSON.stringify(proArray) );
 
 		console.log($("input:text").value);
 		console.log(inputted_pro);
@@ -72,25 +75,10 @@ $("#pro_submit").on("click", function(){
 
 $("#pro_clear").click(function(){
 	localStorage.removeItem("pros");
-	//probably refresh the page too
+	document.location.reload(true)
 })
 
-// proArray = [];
-// proArray.push(inputted_pro);
-// localstorage.setItem("pros", proArray);
-//each time submit pro button is pressed, we should 
-	// 1)push the innertext to the proArray 
-	// 2)reset the localstorage item
 
-
-
-// var proPrevArray = localstorage.getItem('pros')
-// proPrevArray.forEach(function(proText){
-// 	$(".pro_ul").append("<li>" + proText + "</li>") ;
-
-// })
-
-//upon refresh of the page (window.load? document.ready?), we should make a loop that iterates through each item in the array by the 'pros' key, and render it as an li on the page
 
 // -html local storage for storing the pros and cons
 	// i think it would be arrays within an object
