@@ -2,6 +2,7 @@ $(document).ready(function(){
 console.log("connected.")
 console.log($("input:text").length)
 proArray = []
+conArray = []
 
 if(typeof(Storage) !== "undefined"){
     // PROBLEM = inputs that contain commas within themselves get split into separate array items. 
@@ -20,6 +21,18 @@ if(typeof(Storage) !== "undefined"){
 	      		}
 	      	}
 	}
+	if (localStorage.getItem("cons") !== null ){
+    	 conArray = JSON.parse(localStorage.getItem('cons'))
+    	var conPrevArray = JSON.parse(localStorage.getItem('cons'))
+	      	if (conPrevArray !== null){
+	      		for (var i = 0; i < conPrevArray.length; i++){
+	      			$(".con_ul").append("<li>" + conPrevArray[i] + "</li>") 
+	      		}
+	      	}
+	}
+
+
+
 }
 else{
     console.log("No web storage support")
@@ -43,6 +56,21 @@ $("#pro_add").click(function(){
 	}
 
 })
+$("#con_add").click(function(){
+	if ( $("input:text").length === 0 ){ 
+		$(".con_ul").append("<input type='text' placeholder='Con ?'>")
+		console.log($("input:text").length)
+	}
+	else {
+		alert("There is already a text field open.");
+		console.log($("input:text").length)
+	}
+
+})
+
+
+
+
 
 $("#pro_submit").on("click", function(){
 // click(function(){
@@ -73,8 +101,29 @@ $("#pro_submit").on("click", function(){
 	// }
 })
 
+$("#con_submit").on("click", function(){
+	var inputted_con = $("input:text")[0].value ;
+		conArray.push(inputted_con);
+		localStorage.setItem("cons", JSON.stringify(conArray) );
+
+		console.log($("input:text").value);
+		console.log(inputted_con);
+		console.log(conArray);
+		console.log("length of conArray: " + conArray.length);
+
+		$(".con_ul").append("<li>" + inputted_con + "</li>") ;
+		$("input:text").remove()
+		
+})
+
+
 $("#pro_clear").click(function(){
 	localStorage.removeItem("pros");
+	document.location.reload(true)
+})
+
+$("#con_clear").click(function(){
+	localStorage.removeItem("cons");
 	document.location.reload(true)
 })
 

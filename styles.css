@@ -10,8 +10,8 @@ html,body{
 	display: inline-block;
 	overflow: auto;
 }
+
 h1{
-	/*margin: 0 auto;*/
 	text-align: center;
 }
 
@@ -45,7 +45,7 @@ footer{
 	clear:both;
 }
 
-#pro_add, #con_add, #pro_submit, #con_submit, #pro_clear{
+#pro_add, #con_add, #pro_submit, #con_submit, #pro_clear, #con_clear{
 	position: relative;
 	top: 20em;
 	left: 8em;
