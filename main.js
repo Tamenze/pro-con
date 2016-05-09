@@ -127,32 +127,17 @@ $("#con_clear").click(function(){
 	document.location.reload(true)
 })
 
+// STILL TO D0
+// -add styling (think responsive)
+// -dry up code (leave big comments in there, add better comments)
+// -add validations for input fields
+// -remove submit buttons, and make it so that pressing enter submits list item
+// -add delete functionality 
 
-
-// -html local storage for storing the pros and cons
-	// i think it would be arrays within an object
-	// 	{ 
-	// 	  pros:["first", "second"],
-	// 	  cons: ["1","the 2"]
-	// 	}
-// 	-also rendering them in the correct div after a refresh
-
-// -validations 
-
-
-
-
-//put in functionality so when they press enter, the text from input turns into a list item 
-
-// logic: value from input field would be added to the pro_ul as a list item, 
-// 1) form, with submit button, and upon submit press, takes value from text field and removes input field from pro_ul 
-
-// eventually, i want to make the input be turned into the li upon "enter" keypress
-// and i want them to be able to remove any lis if they see fit (remove button, edit button)
-// also, i want validations on the input field, shouldnt be able to submit unless the value is not empty
-
-// right now: have a working model that adds, but want to look into html storage 
-
-// tonight: styling. add edit and remove buttons, make it very stylized with font and borders and everything
+// MAYBES
+// -maybe draggable ui? there can be an unsure area and they can drag that text to either side and have it turn pro/con styled
+// -add what do i do button? and side with most items gets animation?
+// -add title functionality (so you can name the topic at hand)?
+// -make it so that they can have multiple lists stored, saved with time and date last edited
 
 })
