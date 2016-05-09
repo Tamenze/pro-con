@@ -8,6 +8,7 @@ html,body{
 	height: 100%;
 	width: 50%;
 	display: inline-block;
+	overflow: auto;
 }
 h1{
 	/*margin: 0 auto;*/
@@ -44,7 +45,7 @@ footer{
 	clear:both;
 }
 
-#pro_submit, #con_submit{
+#pro_add, #con_add, #pro_submit, #con_submit, #pro_clear{
 	position: relative;
 	top: 20em;
 	left: 8em;
