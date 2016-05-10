@@ -70,7 +70,7 @@ $("#pro_add").click(function(){
 
 $("#con_add").click(function(){
 	if ( $("input:text").length === 0){ 
-		$(".con_ul").append("<input id='con_space' type='text' placeholder='Con?'>");
+		$(".con_ul").append("<input id='con_space' type='text' placeholder='Con? (ENTER)'>");
 		$("#con_space").get(0).focus();
 		$("#con_space").keypress(function(event){
 			if (event.which === 13 && $("input:text")[0].value !== ""){
