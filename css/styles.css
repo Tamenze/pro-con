@@ -50,12 +50,6 @@ footer{
 	clear:both;
 }
 
-/*#pro_add, #con_add, #pro_submit, #con_submit, #pro_clear, #con_clear{
-	position: relative;
-	top: 20em;
-	left: 8em;
-	margin: 40 auto;
-}*/
 .buttons{
 	position: relative;
 	top: 13em;
@@ -68,7 +62,11 @@ footer{
 	margin: 0 auto
 }
 
-
+span{
+	position: fixed;
+	right: 1em;
+	bottom: .5em;
+}
 
 
 
