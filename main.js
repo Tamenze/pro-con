@@ -30,9 +30,6 @@ if(typeof(Storage) !== "undefined"){
 	      		}
 	      	}
 	}
-
-
-
 }
 else{
     console.log("No web storage support")
@@ -43,12 +40,21 @@ else{
 
 $("#pro_add").click(function(){
 	if ( $("input:text").length === 0 ){
-		$(".pro_ul").append("<input type='text' placeholder='Pro ?'>")
-		//if a text field doesn't already exist on the page, add one
-		
-		// $(".pro_ul").append("<input type='text' placeholder='Pro ?'> <button id='pro_ACTUALLY'>Submit</button>")
+		$(".pro_ul").append("<input type='text' placeholder='Pro ?'>").keypress(function(event){
+			if (event.which === 13){
+				var inputted_pro = $("input:text")[0].value ;
+				proArray.push(inputted_pro);
+				localStorage.setItem("pros", JSON.stringify(proArray) );
 
-		console.log($("input:text").length)
+				console.log($("input:text").value);
+				console.log(inputted_pro);
+				console.log(proArray);
+				console.log("length of proArray: " + proArray.length);
+
+				$(".pro_ul").append("<li>" + inputted_pro + "</li>") ;
+				$("input:text").remove()
+			}
+		})
 	}
 	else {
 		alert("There is already a text field open.");
@@ -56,10 +62,25 @@ $("#pro_add").click(function(){
 	}
 
 })
+
+
 $("#con_add").click(function(){
 	if ( $("input:text").length === 0 ){ 
-		$(".con_ul").append("<input type='text' placeholder='Con ?'>")
-		console.log($("input:text").length)
+		$(".con_ul").append("<input id='con_space' type='text' placeholder='Con ?'>").keypress(function(event){
+			if (event.which === 13){
+				var inputted_con = $("input:text")[0].value ;
+				conArray.push(inputted_con);
+				localStorage.setItem("cons", JSON.stringify(conArray) );
+
+				console.log($("input:text").value);
+				console.log(inputted_con);
+				console.log(conArray);
+				console.log("length of conArray: " + conArray.length);
+
+				$(".con_ul").append("<li>" + inputted_con + "</li>") ;
+				$("input:text").remove()
+			}
+		})
 	}
 	else {
 		alert("There is already a text field open.");
@@ -72,49 +93,54 @@ $("#con_add").click(function(){
 
 
 
-$("#pro_submit").on("click", function(){
-// click(function(){
-	// alert("hey!")
-	// if ($("input:text")[0].value !== ""){
-		var inputted_pro = $("input:text")[0].value ;
-		//each time submit pro button is pressed, we should 
-		// 1)push the innertext to the proArray 
-		// 2)reset the localstorage item
-		proArray.push(inputted_pro);
-		// localStorage.setItem("pros", proArray);
-		localStorage.setItem("pros", JSON.stringify(proArray) );
+// // $("#pro_submit").on("click", function(){
+// $("#pro_space").keypress(function(event){
+// 	if (event.which === 13){
+// // click(function(){
+// 	// alert("hey!")
+// 	// if ($("input:text")[0].value !== ""){
+// 		var inputted_pro = $("input:text")[0].value ;
+// 		//each time submit pro button is pressed, we should 
+// 		// 1)push the innertext to the proArray 
+// 		// 2)reset the localstorage item
+// 		proArray.push(inputted_pro);
+// 		// localStorage.setItem("pros", proArray);
+// 		localStorage.setItem("pros", JSON.stringify(proArray) );
 
-		console.log($("input:text").value);
-		console.log(inputted_pro);
-		console.log(proArray);
-		console.log("length of proArray: " + proArray.length);
+// 		console.log($("input:text").value);
+// 		console.log(inputted_pro);
+// 		console.log(proArray);
+// 		console.log("length of proArray: " + proArray.length);
 
 
 
-		$(".pro_ul").append("<li>" + inputted_pro + "</li>") ;
-		$("input:text").remove()
-		// $("#pro_ACTUALLY").remove()
+// 		$(".pro_ul").append("<li>" + inputted_pro + "</li>") ;
+// 		$("input:text").remove()
+// 		// $("#pro_ACTUALLY").remove()
+// 	}
+// 	else {
+// 		console.log('typing')
+// 	}
+// 	// }
+// 	// else {
+// 	 // alert("You must enter a pro.")
+// 	// }
+// })
 
-	// }
-	// else {
-	 // alert("You must enter a pro.")
-	// }
-})
+// $("#con_submit").on("click", function(){
+// 	var inputted_con = $("input:text")[0].value ;
+// 		conArray.push(inputted_con);
+// 		localStorage.setItem("cons", JSON.stringify(conArray) );
 
-$("#con_submit").on("click", function(){
-	var inputted_con = $("input:text")[0].value ;
-		conArray.push(inputted_con);
-		localStorage.setItem("cons", JSON.stringify(conArray) );
+// 		console.log($("input:text").value);
+// 		console.log(inputted_con);
+// 		console.log(conArray);
+// 		console.log("length of conArray: " + conArray.length);
 
-		console.log($("input:text").value);
-		console.log(inputted_con);
-		console.log(conArray);
-		console.log("length of conArray: " + conArray.length);
-
-		$(".con_ul").append("<li>" + inputted_con + "</li>") ;
-		$("input:text").remove()
+// 		$(".con_ul").append("<li>" + inputted_con + "</li>") ;
+// 		$("input:text").remove()
 		
-})
+// })
 
 
 $("#pro_clear").click(function(){
@@ -131,13 +157,22 @@ $("#con_clear").click(function(){
 // -add styling (think responsive)
 // -dry up code (leave big comments in there, add better comments)
 // -add validations for input fields
-// -remove submit buttons, and make it so that pressing enter submits list item
 // -add delete functionality 
+// -make it so that on click of "add pro/con", the focus is put on the text input field
 
 // MAYBES
 // -maybe draggable ui? there can be an unsure area and they can drag that text to either side and have it turn pro/con styled
 // -add what do i do button? and side with most items gets animation?
 // -add title functionality (so you can name the topic at hand)?
 // -make it so that they can have multiple lists stored, saved with time and date last edited
+
+// -should be able to write some text in a yellow sticky note type space (for aspects they're not sure if pro or con), and then drag to the proper side later
+// -should also be able to drag things, once written in list, to opposite side
+
+// -at end of pro/con listing, the side with more aspects should populate a modal that covers the whole page and say yes! or noooooo 
+// -user should be able to send links of their list to others
+// -should be able to put images/gifs in. 
+
+// -put links to my github and portfolio on it 
 
 })

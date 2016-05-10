@@ -4,6 +4,11 @@ html,body{
 	height: 100%;
 }
 
+.container-fluid, .row{
+	height: 100%
+}
+
+
 #positive, #negative{
 	height: 100%;
 	width: 50%;
@@ -30,7 +35,7 @@ h1{
 ul{
 	list-style: none;
 	padding: 1.5em;
-	margin-left: 2em;
+	margin-left: 6em;
 }
 #positive ul li:before{
 	content: "+";
@@ -45,10 +50,22 @@ footer{
 	clear:both;
 }
 
-#pro_add, #con_add, #pro_submit, #con_submit, #pro_clear, #con_clear{
+/*#pro_add, #con_add, #pro_submit, #con_submit, #pro_clear, #con_clear{
 	position: relative;
 	top: 20em;
 	left: 8em;
+	margin: 40 auto;
+}*/
+.buttons{
+	position: relative;
+	top: 10em;
+	margin: 0 auto;
+	/*text-align: center;*/
+}
+
+.btn-block{
+	max-width: 8em;
+	margin: 0 auto
 }
 
 
