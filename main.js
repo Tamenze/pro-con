@@ -40,7 +40,7 @@ else{
 
 $("#pro_add").click(function(){
 	if ( $("input:text").length === 0 ){
-		$(".pro_ul").append("<input id='pro_space' type='text' placeholder='Pro?'>");
+		$(".pro_ul").append("<input id='pro_space' type='text' placeholder='Pro? (ENTER)'>");
 		$("#pro_space").get(0).focus();
 		$("#pro_space").keypress(function(event){
 			
@@ -98,10 +98,6 @@ $("#con_add").click(function(){
 
 
 
-
-
-
-
 $("#pro_clear").click(function(){
 	localStorage.removeItem("pros");
 	document.location.reload(true)
@@ -112,13 +108,14 @@ $("#con_clear").click(function(){
 	document.location.reload(true)
 })
 
-// STILL TO D0
-// -add styling (think responsive)
-// -dry up code (leave big comments in there, add better comments)
-// -add delete functionality 
 
-// -add validations for input fields
-// -make it so that on click of "add pro/con", the focus is put on the text input field
+
+// STILL TO D0
+// -add more styling
+// -dry up code (leave big comments in there, add better comments)
+
+
+
 
 // MAYBES
 // -maybe draggable ui? there can be an unsure area and they can drag that text to either side and have it turn pro/con styled
