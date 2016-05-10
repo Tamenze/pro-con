@@ -14,6 +14,7 @@ if(typeof(Storage) !== "undefined"){
     	// PROBLEM = when pushed to proArray, length is fine. but when localStorage sets 'pros' to be proArray, it is pushing each new character as a separate item in the array, rather than whole strings. 
 		// we need to find a way to make sure the setItem is accepting things as Arrays, not as strings
     	// var proPrevArray = localStorage.getItem('pros').split(",")
+
     	var proPrevArray = JSON.parse(localStorage.getItem('pros'))
 	      	if (proPrevArray !== null){
 	      		for (var i = 0; i < proPrevArray.length; i++){
@@ -37,11 +38,13 @@ else{
 
 
 
-
 $("#pro_add").click(function(){
 	if ( $("input:text").length === 0 ){
-		$(".pro_ul").append("<input type='text' placeholder='Pro ?'>").keypress(function(event){
-			if (event.which === 13){
+		$(".pro_ul").append("<input id='pro_space' type='text' placeholder='Pro?'>");
+		$("#pro_space").get(0).focus();
+		$("#pro_space").keypress(function(event){
+			
+			if (event.which === 13 && $("input:text")[0].value !== ""){ //add presence validations
 				var inputted_pro = $("input:text")[0].value ;
 				proArray.push(inputted_pro);
 				localStorage.setItem("pros", JSON.stringify(proArray) );
@@ -54,6 +57,7 @@ $("#pro_add").click(function(){
 				$(".pro_ul").append("<li>" + inputted_pro + "</li>") ;
 				$("input:text").remove()
 			}
+
 		})
 	}
 	else {
@@ -65,9 +69,11 @@ $("#pro_add").click(function(){
 
 
 $("#con_add").click(function(){
-	if ( $("input:text").length === 0 ){ 
-		$(".con_ul").append("<input id='con_space' type='text' placeholder='Con ?'>").keypress(function(event){
-			if (event.which === 13){
+	if ( $("input:text").length === 0){ 
+		$(".con_ul").append("<input id='con_space' type='text' placeholder='Con?'>");
+		$("#con_space").get(0).focus();
+		$("#con_space").keypress(function(event){
+			if (event.which === 13 && $("input:text")[0].value !== ""){
 				var inputted_con = $("input:text")[0].value ;
 				conArray.push(inputted_con);
 				localStorage.setItem("cons", JSON.stringify(conArray) );
@@ -93,54 +99,7 @@ $("#con_add").click(function(){
 
 
 
-// // $("#pro_submit").on("click", function(){
-// $("#pro_space").keypress(function(event){
-// 	if (event.which === 13){
-// // click(function(){
-// 	// alert("hey!")
-// 	// if ($("input:text")[0].value !== ""){
-// 		var inputted_pro = $("input:text")[0].value ;
-// 		//each time submit pro button is pressed, we should 
-// 		// 1)push the innertext to the proArray 
-// 		// 2)reset the localstorage item
-// 		proArray.push(inputted_pro);
-// 		// localStorage.setItem("pros", proArray);
-// 		localStorage.setItem("pros", JSON.stringify(proArray) );
 
-// 		console.log($("input:text").value);
-// 		console.log(inputted_pro);
-// 		console.log(proArray);
-// 		console.log("length of proArray: " + proArray.length);
-
-
-
-// 		$(".pro_ul").append("<li>" + inputted_pro + "</li>") ;
-// 		$("input:text").remove()
-// 		// $("#pro_ACTUALLY").remove()
-// 	}
-// 	else {
-// 		console.log('typing')
-// 	}
-// 	// }
-// 	// else {
-// 	 // alert("You must enter a pro.")
-// 	// }
-// })
-
-// $("#con_submit").on("click", function(){
-// 	var inputted_con = $("input:text")[0].value ;
-// 		conArray.push(inputted_con);
-// 		localStorage.setItem("cons", JSON.stringify(conArray) );
-
-// 		console.log($("input:text").value);
-// 		console.log(inputted_con);
-// 		console.log(conArray);
-// 		console.log("length of conArray: " + conArray.length);
-
-// 		$(".con_ul").append("<li>" + inputted_con + "</li>") ;
-// 		$("input:text").remove()
-		
-// })
 
 
 $("#pro_clear").click(function(){
@@ -156,8 +115,9 @@ $("#con_clear").click(function(){
 // STILL TO D0
 // -add styling (think responsive)
 // -dry up code (leave big comments in there, add better comments)
-// -add validations for input fields
 // -add delete functionality 
+
+// -add validations for input fields
 // -make it so that on click of "add pro/con", the focus is put on the text input field
 
 // MAYBES
