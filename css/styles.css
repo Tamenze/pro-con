@@ -27,7 +27,6 @@ h1{
 }
 
 #negative{
-	/*border: 1px solid red;*/
 	float: right;
 	background: #ff9999;
 }
@@ -36,6 +35,7 @@ ul{
 	list-style: none;
 	padding: 1.5em;
 	margin-left: 6em;
+	font-size: 1.2em
 }
 #positive ul li:before{
 	content: "+";
@@ -54,20 +54,34 @@ footer{
 	position: relative;
 	top: 13em;
 	margin: 0 auto;
-	/*text-align: center;*/
 }
 
 .btn-block{
-	max-width: 8em;
+	max-width: 6.5em;
 	margin: 0 auto
 }
 
-span{
+#github{
 	position: fixed;
 	right: 1em;
 	bottom: .5em;
 }
 
+.delete{
+	font-size: 14px;
+	color: white;
+	font-weight: bold;
+	visibility: hidden;
+
+}
+
+
+::-webkit-input-placeholder {
+ font-size: 14px;
+ color: #d0cdfa;
+ text-align: center;
+ font-weight: bold;
+}
 
 
 

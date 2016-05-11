@@ -10,7 +10,7 @@ if(typeof(Storage) !== "undefined"){
     // Solution = JSON.stringify (converts proArray to string) and JSON.parse(converts string back to array)
 
     if (localStorage.getItem("pros") !== null ){
-    	 proArray = JSON.parse(localStorage.getItem('pros'))
+    	 // proArray = JSON.parse(localStorage.getItem('pros'))
     	// PROBLEM = when pushed to proArray, length is fine. but when localStorage sets 'pros' to be proArray, it is pushing each new character as a separate item in the array, rather than whole strings. 
 		// we need to find a way to make sure the setItem is accepting things as Arrays, not as strings
     	// var proPrevArray = localStorage.getItem('pros').split(",")
@@ -18,16 +18,17 @@ if(typeof(Storage) !== "undefined"){
     	var proPrevArray = JSON.parse(localStorage.getItem('pros'))
 	      	if (proPrevArray !== null){
 	      		for (var i = 0; i < proPrevArray.length; i++){
-	      			$(".pro_ul").append("<li>" + proPrevArray[i] + "</li>") 
+	      			$(".pros").append("<li class='" + proPrevArray.indexOf(proPrevArray[i]) + "'>" + proPrevArray[i] + " <span class='delete'>X</span> </li>") 
 	      		}
 	      	}
 	}
+
 	if (localStorage.getItem("cons") !== null ){
     	 conArray = JSON.parse(localStorage.getItem('cons'))
     	var conPrevArray = JSON.parse(localStorage.getItem('cons'))
 	      	if (conPrevArray !== null){
 	      		for (var i = 0; i < conPrevArray.length; i++){
-	      			$(".con_ul").append("<li>" + conPrevArray[i] + "</li>") 
+	      			$(".cons").append("<li class='" + conPrevArray.indexOf(conPrevArray[i]) + "'>" + conPrevArray[i] + " <span class='delete'>X</span> </li>") 
 	      		}
 	      	}
 	}
@@ -39,8 +40,11 @@ else{
 
 
 $("#pro_add").click(function(){
+	var key = $(this).parent().siblings("ul").attr('class')
+	console.log(key) 
+
 	if ( $("input:text").length === 0 ){
-		$(".pro_ul").append("<input id='pro_space' type='text' placeholder='Pro? (ENTER)'>");
+		$(".pros").append("<input id='pro_space' type='text' placeholder='PRO? (Enter)'>");
 		$("#pro_space").get(0).focus();
 		$("#pro_space").keypress(function(event){
 			
@@ -49,12 +53,16 @@ $("#pro_add").click(function(){
 				proArray.push(inputted_pro);
 				localStorage.setItem("pros", JSON.stringify(proArray) );
 
-				console.log($("input:text").value);
-				console.log(inputted_pro);
-				console.log(proArray);
-				console.log("length of proArray: " + proArray.length);
+				// console.log($("input:text").value);
+				// console.log(inputted_pro);
+				// console.log(proArray);
+				// console.log("length of proArray: " + proArray.length);
 
-				$(".pro_ul").append("<li>" + inputted_pro + "</li>") ;
+				var myArray = JSON.parse(localStorage.getItem(key))
+				var index = myArray.length - 1
+
+
+				$(".pros").append("<li class=" + index +">" + inputted_pro + " <span class='delete'>X</span> </li>") ;
 				$("input:text").remove()
 			}
 
@@ -69,8 +77,11 @@ $("#pro_add").click(function(){
 
 
 $("#con_add").click(function(){
+	var key = $(this).parent().siblings("ul").attr('class')
+	console.log(key) 	
+
 	if ( $("input:text").length === 0){ 
-		$(".con_ul").append("<input id='con_space' type='text' placeholder='Con? (ENTER)'>");
+		$(".cons").append("<input id='con_space' type='text' placeholder='Con? (Enter)'>");
 		$("#con_space").get(0).focus();
 		$("#con_space").keypress(function(event){
 			if (event.which === 13 && $("input:text")[0].value !== ""){
@@ -78,12 +89,19 @@ $("#con_add").click(function(){
 				conArray.push(inputted_con);
 				localStorage.setItem("cons", JSON.stringify(conArray) );
 
-				console.log($("input:text").value);
-				console.log(inputted_con);
-				console.log(conArray);
-				console.log("length of conArray: " + conArray.length);
+				// console.log($("input:text").value);
+				// console.log(inputted_con);
+				// console.log(conArray);
+				// console.log("length of conArray: " + conArray.length);
 
-				$(".con_ul").append("<li>" + inputted_con + "</li>") ;
+				var myArray = JSON.parse(localStorage.getItem(key))
+				var index = myArray.length - 1
+				// console.log("index: "+ index)
+
+				// var my_value = JSON.parse(localStorage.getItem(key))[index]	
+
+				$(".cons").append("<li class=" + index +">" + inputted_con + " <span class='delete'>X</span> </li>") ;
+					//i need to dynamically add an event listener to this li
 				$("input:text").remove()
 			}
 		})
@@ -95,7 +113,52 @@ $("#con_add").click(function(){
 
 })
 
+$("ul li").mouseenter(function(){
+	// console.log('in')
+	var delete_me = $(this).find(".delete")
+	delete_me.css({"visibility":"visible"});
 
+	var myIndex = $(this).attr('class')
+	console.log("myIndex: "+ myIndex)
+
+	var key = $(this).parents("ul").attr('class') 
+	
+
+	delete_me.click(function(){
+
+
+
+		console.log("2nd way" + JSON.parse(localStorage.getItem(key))[myIndex])
+		// localStorage.removeItem(key[myIndex])
+		// PROBLEM: we can only pass in whole objects to the remove Item function, not array indexes
+		// we need to find a way to loop through the relevant array and delete the value at myIndex
+
+		var items = JSON.parse(localStorage.getItem(key))
+		console.log("pre-splice items: " + items)
+		if (myIndex > -1){
+			items.splice(myIndex, 1)
+			//removes 1 item at myIndex from items Array.splice(positionToStartRemoval, howMany)
+		}
+
+		console.log("items: " + items)
+		
+		localStorage.setItem(key, JSON.stringify(items))
+		console.log("new local: "+ JSON.parse(localStorage.getItem(key)))
+		document.location.reload(true)
+
+			// console.log(localStorage.getItem(key[index]))
+				// localStorage.removeItem(key[index])
+		//remove it from the corresponding cookie array
+			// -perhaps give each li the class corresponding to its place in the index,
+			// and when the x is clicked, it removes only the localstorage item in the specified key and index location 
+		//remove the parent li of this span from the page
+	})
+
+})
+
+$("ul li").mouseleave(function(){
+	$(this).find(".delete").css({"visibility":"hidden"})
+})
 
 
 $("#pro_clear").click(function(){
@@ -111,25 +174,25 @@ $("#con_clear").click(function(){
 
 
 // STILL TO D0
-// -add more styling
 // -dry up code (leave big comments in there, add better comments)
+//-add some pop up instructions if they have never visited the site before (cookies)
+	// -they can use html to put <strong> or <i> or images, etc
 
+// bugs
+// -the x doesnt show up until a refresh
 
+// -the indices get messed up if one deletes and then adds to the same list
 
 
 // MAYBES
-// -maybe draggable ui? there can be an unsure area and they can drag that text to either side and have it turn pro/con styled
 // -add what do i do button? and side with most items gets animation?
 // -add title functionality (so you can name the topic at hand)?
 // -make it so that they can have multiple lists stored, saved with time and date last edited
 
-// -should be able to write some text in a yellow sticky note type space (for aspects they're not sure if pro or con), and then drag to the proper side later
-// -should also be able to drag things, once written in list, to opposite side
 
 // -at end of pro/con listing, the side with more aspects should populate a modal that covers the whole page and say yes! or noooooo 
 // -user should be able to send links of their list to others
 // -should be able to put images/gifs in. 
 
-// -put links to my github and portfolio on it 
 
 })
