@@ -4,13 +4,14 @@ console.log($("input:text").length)
 proArray = []
 conArray = []
 
+
 if(typeof(Storage) !== "undefined"){
     // PROBLEM = inputs that contain commas within themselves get split into separate array items. 
     // 	we need to find a way to split the array into strings without messing up the internal strings, a way that doesnt use commas
     // Solution = JSON.stringify (converts proArray to string) and JSON.parse(converts string back to array)
 
     if (localStorage.getItem("pros") !== null ){
-    	 // proArray = JSON.parse(localStorage.getItem('pros'))
+    	 proArray = JSON.parse(localStorage.getItem('pros'))
     	// PROBLEM = when pushed to proArray, length is fine. but when localStorage sets 'pros' to be proArray, it is pushing each new character as a separate item in the array, rather than whole strings. 
 		// we need to find a way to make sure the setItem is accepting things as Arrays, not as strings
     	// var proPrevArray = localStorage.getItem('pros').split(",")
@@ -24,8 +25,9 @@ if(typeof(Storage) !== "undefined"){
 	}
 
 	if (localStorage.getItem("cons") !== null ){
-    	 conArray = JSON.parse(localStorage.getItem('cons'))
+    	conArray = JSON.parse(localStorage.getItem('cons'))
     	var conPrevArray = JSON.parse(localStorage.getItem('cons'))
+	      	
 	      	if (conPrevArray !== null){
 	      		for (var i = 0; i < conPrevArray.length; i++){
 	      			$(".cons").append("<li class='" + conPrevArray.indexOf(conPrevArray[i]) + "'>" + conPrevArray[i] + " <span class='delete'>X</span> </li>") 
@@ -84,24 +86,18 @@ $("#con_add").click(function(){
 		$(".cons").append("<input id='con_space' type='text' placeholder='Con? (Enter)'>");
 		$("#con_space").get(0).focus();
 		$("#con_space").keypress(function(event){
+
 			if (event.which === 13 && $("input:text")[0].value !== ""){
 				var inputted_con = $("input:text")[0].value ;
 				conArray.push(inputted_con);
 				localStorage.setItem("cons", JSON.stringify(conArray) );
 
-				// console.log($("input:text").value);
-				// console.log(inputted_con);
-				// console.log(conArray);
-				// console.log("length of conArray: " + conArray.length);
-
 				var myArray = JSON.parse(localStorage.getItem(key))
 				var index = myArray.length - 1
-				// console.log("index: "+ index)
 
-				// var my_value = JSON.parse(localStorage.getItem(key))[index]	
 
 				$(".cons").append("<li class=" + index +">" + inputted_con + " <span class='delete'>X</span> </li>") ;
-					//i need to dynamically add an event listener to this li
+					//i need to dynamically add an event listener to this span class
 				$("input:text").remove()
 			}
 		})
@@ -113,8 +109,10 @@ $("#con_add").click(function(){
 
 })
 
+
 $("ul li").mouseenter(function(){
-	// console.log('in')
+
+
 	var delete_me = $(this).find(".delete")
 	delete_me.css({"visibility":"visible"});
 
@@ -123,7 +121,6 @@ $("ul li").mouseenter(function(){
 
 	var key = $(this).parents("ul").attr('class') 
 	
-
 	delete_me.click(function(){
 
 
@@ -180,8 +177,8 @@ $("#con_clear").click(function(){
 
 // bugs
 // -the x doesnt show up until a refresh
+// -switching back and forth quickly between lis and then deleting one sometimes deletes the other one too
 
-// -the indices get messed up if one deletes and then adds to the same list
 
 
 // MAYBES
