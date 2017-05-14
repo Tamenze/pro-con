@@ -54,6 +54,7 @@ footer{
 	position: relative;
 	top: 13em;
 	margin: 0 auto;
+	margin-bottom: 2em
 }
 
 .btn-block{
@@ -71,9 +72,14 @@ footer{
 	font-size: 14px;
 	color: white;
 	font-weight: bold;
-	visibility: hidden;
-
+	opacity: 0
 }
+
+li:hover > span.delete{
+	opacity: 1
+}
+
+
 
 
 ::-webkit-input-placeholder {

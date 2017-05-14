@@ -50,8 +50,8 @@ $("#pro_add").click(function(){
 		$("#pro_space").get(0).focus();
 		$("#pro_space").keypress(function(event){
 			
-			if (event.which === 13 && $("input:text")[0].value !== ""){ //add presence validations
-				var inputted_pro = $("input:text")[0].value ;
+			if (event.which === 13 && $("input:text")[0].value !== ""){ //adds presence validations
+				var inputted_pro = $("input:text")[0].value ; //gets text 
 				proArray.push(inputted_pro);
 				localStorage.setItem("pros", JSON.stringify(proArray) );
 
@@ -110,52 +110,30 @@ $("#con_add").click(function(){
 })
 
 
-$("ul li").mouseenter(function(){
+// $(".delete").click(function(){   
+
+$(document).on('click', ".delete", function(){	
+	var myIndex = $(this).parents("li").attr('class')
+	var localKey = $(this).parents("ul").attr('class')
+	var items = JSON.parse(localStorage.getItem(localKey)) //sets items to be array of all elements in current array
+
+	console.log("element selected for removal: " + JSON.parse(localStorage.getItem(localKey))[myIndex]) //logs selected li item 
+	console.log("removal index: "+ myIndex) //log selected li's index
+
+	if (myIndex > -1){  //if selected index is larger than -1 (should always be)
+		console.log("pre-splice items: " + items)   //log selected li's containing array to console 
+		items.splice(myIndex, 1)  //removes one item from containing temporary array at the selected index 
+		console.log("post-splice items: " + items) 	 //logs new temporary array after splicing
+	}
+
+	localStorage.setItem(localKey, JSON.stringify(items))  //sets pro/con array to be newly post-splice array 
+	console.log("new local " + localKey + " array: "+ JSON.parse(localStorage.getItem(localKey))) //logs new array from local storage
+	document.location.reload(true) //reloads page so that array appears as from local storage 
+
+});
 
 
-	var delete_me = $(this).find(".delete")
-	delete_me.css({"visibility":"visible"});
 
-	var myIndex = $(this).attr('class')
-	console.log("myIndex: "+ myIndex)
-
-	var key = $(this).parents("ul").attr('class') 
-	
-	delete_me.click(function(){
-
-
-
-		console.log("2nd way" + JSON.parse(localStorage.getItem(key))[myIndex])
-		// localStorage.removeItem(key[myIndex])
-		// PROBLEM: we can only pass in whole objects to the remove Item function, not array indexes
-		// we need to find a way to loop through the relevant array and delete the value at myIndex
-
-		var items = JSON.parse(localStorage.getItem(key))
-		console.log("pre-splice items: " + items)
-		if (myIndex > -1){
-			items.splice(myIndex, 1)
-			//removes 1 item at myIndex from items Array.splice(positionToStartRemoval, howMany)
-		}
-
-		console.log("items: " + items)
-		
-		localStorage.setItem(key, JSON.stringify(items))
-		console.log("new local: "+ JSON.parse(localStorage.getItem(key)))
-		document.location.reload(true)
-
-			// console.log(localStorage.getItem(key[index]))
-				// localStorage.removeItem(key[index])
-		//remove it from the corresponding cookie array
-			// -perhaps give each li the class corresponding to its place in the index,
-			// and when the x is clicked, it removes only the localstorage item in the specified key and index location 
-		//remove the parent li of this span from the page
-	})
-
-})
-
-$("ul li").mouseleave(function(){
-	$(this).find(".delete").css({"visibility":"hidden"})
-})
 
 
 $("#pro_clear").click(function(){
@@ -177,9 +155,11 @@ $("#con_clear").click(function(){
 
 // bugs
 // -the x doesnt show up until a refresh
+		//FIXED BY USING OPACITY INSTEAD OF VISIBILITY
 // -switching back and forth quickly between lis and then deleting one sometimes deletes the other one too
-
-
+		//FIXED BY REMOVING MOUSE ENTER EVENT, WHICH WAS ATTACHING MULTIPLE CLICK HANDLERS TO DELETE BUTTON
+// // -the x doesnt work with the function until refreshed
+		//FIXED BY USING .ON TO BIND EVENT TO DYNAMICALLY ADDED ELEMENT (http://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements)
 
 // MAYBES
 // -add what do i do button? and side with most items gets animation?
