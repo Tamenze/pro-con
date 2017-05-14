@@ -79,6 +79,7 @@ $("#pro_add").click(function(){
 
 
 $("#con_add").click(function(){
+
 	var key = $(this).parent().siblings("ul").attr('class')
 	console.log(key) 	
 
@@ -110,8 +111,7 @@ $("#con_add").click(function(){
 })
 
 
-// $(".delete").click(function(){   
-
+//DELETES LIST ITEMS
 $(document).on('click', ".delete", function(){	
 	var myIndex = $(this).parents("li").attr('class')
 	var localKey = $(this).parents("ul").attr('class')
@@ -133,9 +133,6 @@ $(document).on('click', ".delete", function(){
 });
 
 
-
-
-
 $("#pro_clear").click(function(){
 	localStorage.removeItem("pros");
 	document.location.reload(true)
@@ -152,6 +149,8 @@ $("#con_clear").click(function(){
 // -dry up code (leave big comments in there, add better comments)
 //-add some pop up instructions if they have never visited the site before (cookies)
 	// -they can use html to put <strong> or <i> or images, etc
+	////set up so when they exit the intro popups, key prior in locla storage is set to true
+		//so when they next come, i only show the popups if(localStorage.getItem("prior") !== "true")
 
 // bugs
 // -the x doesnt show up until a refresh
@@ -161,10 +160,18 @@ $("#con_clear").click(function(){
 // // -the x doesnt work with the function until refreshed
 		//FIXED BY USING .ON TO BIND EVENT TO DYNAMICALLY ADDED ELEMENT (http://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements)
 
+
 // MAYBES
 // -add what do i do button? and side with most items gets animation?
 // -add title functionality (so you can name the topic at hand)?
 // -make it so that they can have multiple lists stored, saved with time and date last edited
+
+
+// -welcome! this interface is simply designed to let you jot down positive and negative aspects of any situation
+
+// -you can weigh your woes here and come back to them for introspection later 
+
+
 
 
 // -at end of pro/con listing, the side with more aspects should populate a modal that covers the whole page and say yes! or noooooo 

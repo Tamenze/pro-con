@@ -80,12 +80,11 @@ li:hover > span.delete{
 }
 
 
-
-
 ::-webkit-input-placeholder {
  font-size: 14px;
  color: #d0cdfa;
- text-align: center;
+ text-align: left;
+ padding-left: 5px;
  font-weight: bold;
 }
 
